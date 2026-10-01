@@ -1,0 +1,169 @@
+{
+  "monoliths": [
+    {
+      "id": 1,
+      "grid_pos": [
+        805,
+        413
+      ],
+      "num_slots": 5,
+      "crown_slots": [
+        4,
+        2
+      ],
+      "runes": [
+        "Cyclonic",
+        "Gasp",
+        "Celestial",
+        "Fire",
+        "Life"
+      ]
+    },
+    {
+      "id": 2,
+      "grid_pos": [
+        300,
+        598
+      ],
+      "num_slots": 3,
+      "crown_slots": [
+        0
+      ],
+      "runes": [
+        "Momentum",
+        "Life",
+        "Tempest"
+      ]
+    },
+    {
+      "id": 3,
+      "grid_pos": [
+        484,
+        920
+      ],
+      "num_slots": 4,
+      "crown_slots": [
+        1
+      ],
+      "runes": [
+        "Arcane",
+        "Cyclonic",
+        "Fire",
+        "Protective"
+      ]
+    },
+    {
+      "id": 4,
+      "grid_pos": [
+        983,
+        599
+      ],
+      "num_slots": 3,
+      "crown_slots": [
+        1
+      ],
+      "runes": [
+        "Tidal",
+        "Adaptive",
+        "Gasp"
+      ]
+    },
+    {
+      "id": 5,
+      "grid_pos": [
+        1019,
+        460
+      ],
+      "num_slots": 4,
+      "crown_slots": [
+        3,
+        1
+      ],
+      "runes": [
+        "Rage",
+        "Rebirth",
+        "Tidal",
+        "Cyclonic"
+      ]
+    },
+    {
+      "id": 6,
+      "grid_pos": [
+        1058,
+        344
+      ],
+      "num_slots": 3,
+      "crown_slots": [
+        2,
+        1
+      ],
+      "runes": [
+        "Gasp",
+        "Rebirth",
+        "Tidal"
+      ]
+    },
+    {
+      "id": 7,
+      "grid_pos": [
+        1045,
+        823
+      ],
+      "num_slots": 6,
+      "crown_slots": [
+        0
+      ],
+      "runes": [
+        "Fire",
+        "Earth",
+        "Prismatic",
+        "Soul",
+        "Rage",
+        "Rebirth"
+      ]
+    },
+    {
+      "id": 8,
+      "grid_pos": [
+        1109,
+        654
+      ],
+      "num_slots": 4,
+      "crown_slots": [
+        0
+      ],
+      "runes": [
+        "Oath",
+        "Electrocuting",
+        "Rage",
+        "Gasp"
+      ]
+    },
+    {
+      "id": 9,
+      "grid_pos": [
+        1151,
+        627
+      ],
+      "num_slots": 3,
+      "crown_slots": [
+        2
+      ],
+      "runes": [
+        "Gasp",
+        "Rebirth",
+        "Tidal"
+      ]
+    }
+  ],
+  "num_charges": 15,
+  "charges_dist": 108.0,
+  "explo_radius": 37.0,
+  "detonator": {
+    "grid_pos": [
+      432,
+      670
+    ],
+    "total_charges": 15
+  }
+}

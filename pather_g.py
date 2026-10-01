@@ -107,12 +107,11 @@ class Cell:
 
 
 def _encode_png_ga(mask, gray: int = 96, bg: int = 255) -> bytes:
-    print("encoding png")
     rows, width = mask.shape
     ga = np.zeros((rows, width, 2), dtype=np.uint8)
     ga[..., 0] = np.where(mask, np.uint8(gray), np.uint8(bg))  # grey channel (walkable / background)
-    ga[..., 1] = 255                                           # alpha channel (fully opaque)
-    # Build the zlib stream: each scanline prefixed with filter byte 0 (none).
+    ga[..., 1] = 255                                                         # alpha channel (fully opaque)
+
     stream = bytearray()
     flat = ga.reshape(rows, width * 2)
     for y in range(rows):
@@ -124,23 +123,18 @@ def _encode_png_ga(mask, gray: int = 96, bg: int = 255) -> bytes:
                 + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF))
 
     sig = b"\x89PNG\r\n\x1a\n"
-    #print(sig.hex())
     ihdr = struct.pack(">IIBBBBB", width, rows, 8, 4, 0, 0, 0)  # colortype 4 = GA
     idat = zlib.compress(bytes(stream), 6)
-    print(f"png size: {len(idat)}")
     return sig + chunk(b"IHDR", ihdr) + chunk(b"IDAT", idat) + chunk(b"IEND", b"")
 
 def load_npy(path):
-    print(f"loading npy {path}")
     cells = np.load(file=path)
-    print("cells loaded")
     if cells.ndim != 2:
         raise ValueError(f"{os.path.basename(path)} is {cells.ndim}D; expected a 2D grid")
     cells = cells.astype(np.uint8, copy=False)
-    print("cells converted")
     rows, width = cells.shape
     bpr = width // 2  # 2 cells per byte (width = bpr*2)
-    # Re-pack to the game's nibble layout: even x = low nibble, odd x = high.
+
     packed = np.zeros((rows, bpr), dtype=np.uint8)
     lo = cells[:, 0:bpr * 2:2]  # even columns
     hi = cells[:, 1:bpr * 2:2]  # odd columns
@@ -153,8 +147,6 @@ def load_npy(path):
 
 class Board:
     def __init__(self, imgname):
-        print("loading map")
-        print(imgname)
         pil = Image.open(io.BytesIO(load_npy(imgname))).convert("RGB")
 
         self.im = np.array(pil)  # HxWx3, uint8
@@ -507,9 +499,7 @@ def add_marker(tgt_id, pos_x, pos_y, pos_radius, arr, board):
 def main(default_data=False, data_dir=''):
     decisions = ["slots", "values_and_slots", "weights", "crown", "optimal"]
 
-    # Loaded data has priority: whenever data_dir holds the required files we use
-    # them, even if default_data was requested. Fall back to the built-in
-    # defaults only when there is nothing to load.
+
     have_loaded = bool(data_dir) and \
         os.path.isfile(os.path.join(data_dir, "monoliths.json")) and \
         os.path.isfile(os.path.join(data_dir, "walkable.npy"))
@@ -522,7 +512,7 @@ def main(default_data=False, data_dir=''):
         print(f"no loaded data found in {data_dir!r}; falling back to default data")
         use_default = True
 
-    if use_default:
+    if default_data:
         map_file = 'bg.png'
         data_file = ''
     else:
@@ -634,12 +624,7 @@ def main(default_data=False, data_dir=''):
 
 
 def _summarize_and_pick(results):
-    """Print a summary of every decision and pick the most efficient one.
-
-    Efficiency is score per charge (reward per detonation charge). Orders that
-    fit the charge budget are preferred; among those (or, if none fit, among all)
-    the highest efficiency wins. The winning plot is copied to
-    saved_order/BEST_<decision>.png."""
+    # Efficiency is score per charge (reward per detonation charge).
     if not results:
         return
 

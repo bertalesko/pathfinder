@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import pather_g as pg
+import pather_g_optimized as pg
 import threading
 
 
